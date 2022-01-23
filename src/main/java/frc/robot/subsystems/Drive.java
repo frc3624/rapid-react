@@ -4,14 +4,16 @@
 
 package frc.robot.subsystems;
 
+import static frc.robot.Constants.LEFT_MASTER;
+import static frc.robot.Constants.LEFT_SLAVE;
+import static frc.robot.Constants.RIGHT_MASTER;
+import static frc.robot.Constants.RIGHT_SLAVE;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class ExampleSubsystem extends SubsystemBase {
-  /** Creates a new ExampleSubsystem. */
-  public ExampleSubsystem() {}
+public class Drive extends SubsystemBase {
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+
+  public Drive() {
   }
 }
