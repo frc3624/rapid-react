@@ -4,21 +4,32 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveTrain;
 import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj2.command.Command;
+import static frc.robot.Constants.*;
 
 public class RobotContainer {
+	// Controller and Buttons
+	private final XboxController xboxController = new XboxController(CONTROLLER_ID);
+	
+	// Subsystems
+	private final Drive drive = new Drive();
+	
+	// Commands
+	private final DriveTrain driveTrain = new DriveTrain(drive, xboxController);
+	
+	public RobotContainer() {
+		configureButtonBindings();
+		drive.setDefaultCommand(driveTrain);
+	}
 
-  public RobotContainer() {
-    configureButtonBindings();
-  }
+	private void configureButtonBindings() {
 
-  private void configureButtonBindings() {}
+	}
 
-  public Command getAutonomousCommand() {
-    return null;
-  }
+	public Command getAutonomousCommand() {
+		return null;
+	}
 }

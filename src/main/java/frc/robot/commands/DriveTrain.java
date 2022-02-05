@@ -9,26 +9,27 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 
 public class DriveTrain extends CommandBase {
-  private final Drive drive;
-  private final XboxController xboxController;
-  public DriveTrain(Drive drive, XboxController joystick) {
-    this.drive = drive;
-    this.xboxController = joystick;
-    addRequirements(drive);
-  }
+	private final Drive drive;
+	private final XboxController xboxController;
+	public DriveTrain(Drive drive, XboxController joystick) {
+		this.drive = drive;
+		this.xboxController = joystick;
+		addRequirements(drive);
+	}
 
-  @Override
-  public void initialize() {}
+	@Override
+	public void initialize() {}
 
-  @Override
-  public void execute() {
-  }
+	@Override
+	public void execute() {
+		drive.arcadeDrive(-xboxController.getRightX(), xboxController.getLeftY());
+	}
 
-  @Override
-  public void end(boolean interrupted) {}
+	@Override
+	public void end(boolean interrupted) {}
 
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+	@Override
+	public boolean isFinished() {
+		return false;
+	}
 }
