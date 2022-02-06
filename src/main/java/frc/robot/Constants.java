@@ -12,4 +12,7 @@ public final class Constants {
 	
 	// Drive IDs
 	public static final int LEFT_MASTER = 1,  LEFT_SLAVE = 2, RIGHT_MASTER = 3, RIGHT_SLAVE = 4; 
+
+	// Climb IDs
+	public static final int CLIMB_MOTOR_ID = 5;
 }
