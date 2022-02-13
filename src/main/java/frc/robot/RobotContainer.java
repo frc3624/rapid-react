@@ -10,11 +10,14 @@ import frc.robot.commands.elevator.RunElevator;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Elevator;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 import static frc.robot.Constants.*;
 
 public class RobotContainer {
 	// Controller and Buttons
 	private final XboxController xboxController = new XboxController(CONTROLLER_ID);
+	private final JoystickButton elevatorButton = new JoystickButton(xboxController, BUTTON_A);
 	
 	// Subsystems
 	private final Drive drive = new Drive();
@@ -30,7 +33,7 @@ public class RobotContainer {
 	}
 
 	private void configureButtonBindings() {
-
+		elevatorButton.whileHeld(runElevator);
 	}
 
 	public Command getAutonomousCommand() {

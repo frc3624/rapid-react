@@ -18,10 +18,14 @@ public class RunElevator extends CommandBase {
 	public void initialize() {}
 
 	@Override
-	public void execute() {}
+	public void execute() {
+		elevator.constant(0.6); // we don't know the correct numerical value yet
+	}
 
 	@Override
-	public void end(boolean interrupted) {}
+	public void end(boolean interrupted) {
+		elevator.stopBoth();
+	}
 
 	@Override
 	public boolean isFinished() {
