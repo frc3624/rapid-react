@@ -4,6 +4,8 @@
 
 package frc.robot.commands.climbing;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climb;
 
@@ -11,16 +13,20 @@ import frc.robot.subsystems.Climb;
 // This is why we have a folder for it
 public class Climbing extends CommandBase {
 	private final Climb climb;
-	public Climbing(Climb climb) {
+	private final XboxController joystick;
+	public Climbing(Climb climb, XboxController joystick) {
 		this.climb = climb;
 		addRequirements(climb);
+		this.joystick = joystick;	
 	}
 
 	@Override
 	public void initialize() {}
 
 	@Override
-	public void execute() {}
+	public void execute() {
+		climb.run(joystick.getLeftX());
+	}
 
 	@Override
 	public void end(boolean interrupted) {}

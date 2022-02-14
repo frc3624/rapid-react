@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveTrain;
+import frc.robot.commands.climbing.Climbing;
+import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj2.command.Command;
 import static frc.robot.Constants.*;
@@ -16,13 +18,17 @@ public class RobotContainer {
 	
 	// Subsystems
 	private final Drive drive = new Drive();
+	private final Climb climb = new Climb();
 	
 	// Commands
 	private final DriveTrain driveTrain = new DriveTrain(drive, xboxController);
+	private final Climbing climbing = new Climbing(climb, xboxController);
+
 	
 	public RobotContainer() {
 		configureButtonBindings();
 		drive.setDefaultCommand(driveTrain);
+		climb.setDefaultCommand(climbing);
 	}
 
 	private void configureButtonBindings() {
