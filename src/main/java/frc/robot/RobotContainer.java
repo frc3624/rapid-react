@@ -6,8 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveTrain;
-import frc.robot.commands.SenseColor;
-import frc.robot.subsystems.ColorSensor;
 import frc.robot.commands.climbing.Climbing;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drive;
@@ -20,7 +18,6 @@ public class RobotContainer {
 	// Controller and Buttons
 	private final XboxController xboxController = new XboxController(CONTROLLER_ID);
 	private final JoystickButton climbButton = new JoystickButton(xboxController, BUTTON_B);
-	private final JoystickButton senseColorButton = new JoystickButton(xboxController, BUTTON_A);
 	
 	// Subsystems
 	private final Drive drive = new Drive();
@@ -37,7 +34,6 @@ public class RobotContainer {
 
 	private void configureButtonBindings() {
 		climbButton.whileHeld(climbing);
-		senseColorButton.whileHeld(senseColor);
 	}
 
 	public Command getAutonomousCommand() {
