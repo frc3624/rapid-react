@@ -7,9 +7,9 @@ package frc.robot.commands.elevator;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Elevator;
 
-public class RunElevator extends CommandBase {
+public class RunUpper extends CommandBase {
 	private final Elevator elevator;
-	public RunElevator(Elevator elevator) {
+	public RunUpper(Elevator elevator) {
 		this.elevator = elevator;
 		addRequirements(elevator);
 	}
@@ -19,12 +19,12 @@ public class RunElevator extends CommandBase {
 
 	@Override
 	public void execute() {
-		elevator.constant(0.6); // we don't know the correct numerical value yet
+		elevator.runUpper(); // we don't know the correct numerical value yet
 	}
 
 	@Override
 	public void end(boolean interrupted) {
-		elevator.stopBoth();
+		elevator.runUpper(0);
 	}
 
 	@Override
