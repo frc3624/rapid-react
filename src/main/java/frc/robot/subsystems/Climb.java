@@ -9,16 +9,25 @@ import static frc.robot.Constants.*;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climb extends SubsystemBase {
 	private final CANSparkMax climbMotor = new CANSparkMax(CLIMB_MOTOR_ID, MotorType.kBrushless);
+	private final DigitalInput topLimSwitch = new DigitalInput(0);
+	private final DigitalInput botLimSwitch = new DigitalInput(1);
 	public Climb() {
-
+		climbMotor.setInverted(true);
 	}
-	@Override
-	public void periodic() {
-		// This method will be called once per scheduler run
+	public void run(double speed) {
+		climbMotor.set(speed);
+	}
+	public boolean isAtTop() {
+		return topLimSwitch.get();
+	}
+
+	public boolean isAtBottom() {
+		return botLimSwitch.get();
 	}
 }
 
