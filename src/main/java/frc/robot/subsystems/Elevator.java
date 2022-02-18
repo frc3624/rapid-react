@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Elevator extends SubsystemBase {
   private final WPI_TalonSRX upperElevator = new WPI_TalonSRX(UPPER_ID);
   private final WPI_TalonSRX lowerElevator = new WPI_TalonSRX(LOWER_ID);
-  private final double ELEVATOR_SPEED = 0.4;
+  private final double ELEVATOR_SPEED = 0.6;
   private final double CURRENT_LIMIT = 5;
 
   public Elevator() {

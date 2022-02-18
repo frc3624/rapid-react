@@ -19,8 +19,8 @@ import static frc.robot.Constants.*;
 public class RobotContainer {
 	// Controller and Buttons
 	private final XboxController xboxController = new XboxController(CONTROLLER_ID);
-	private final JoystickButton elevatorButton = new JoystickButton(xboxController, BUTTON_A);
-	private final JoystickButton elevatorButton1 = new JoystickButton(xboxController, BUTTON_B);
+	private final JoystickButton elevatorButton = new JoystickButton(xboxController, BUTTON_B);
+	private final JoystickButton elevatorButton1 = new JoystickButton(xboxController, BUTTON_A);
 	
 	// Subsystems
 	private final Drive drive = new Drive();
