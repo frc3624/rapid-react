@@ -15,4 +15,7 @@ public final class Constants {
 
 	// Elevator IDs
 	public static final int LOWER_ID = 5, UPPER_ID = 6;
+
+	// Climb IDs
+	public static final int CLIMB_MOTOR_ID = 7;
 }
