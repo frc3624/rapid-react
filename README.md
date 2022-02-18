@@ -14,13 +14,14 @@
 
 ### On the Xbox Controller
 
-- Left Joystick:
-- Right Joystick:
+- Left Joystick: Drives
 - Left Bumper:
 - Right Bumper:
 - Right Trigger:
-- B Button:
-- X Button:
+- A Button: Climb Down
+- B Button: Climb Up
+- X Button: Lower Elevator
+- Y Button: Upper Elevator
 
 - DPAD UP:
 - DPAD DOWN:
