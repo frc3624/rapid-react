@@ -10,13 +10,11 @@ import frc.robot.subsystems.Climb;
 
 // This class is probably not going to be the only class for climbing
 // This is why we have a folder for it
-public class Climbing extends CommandBase {
+public class ClimbingDown extends CommandBase {
 	private final Climb climb;
-	private final XboxController xboxController;
-	public Climbing(Climb climb, XboxController xboxController) {
+	public ClimbingDown(Climb climb, XboxController xboxController) {
 		this.climb = climb;
 		addRequirements(climb);
-		this.xboxController = xboxController;	
 	}
 
 	@Override
@@ -24,7 +22,7 @@ public class Climbing extends CommandBase {
 
 	@Override
 	public void execute() {
-		climb.run(-0.4);
+		climb.run(-0.3);
 	}
 
 	@Override
