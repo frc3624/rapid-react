@@ -22,14 +22,6 @@ public class DriveTrain extends CommandBase {
 
 	@Override
 	public void execute() {
-		drive.arcadeDrive(-xboxController.getRightX(), xboxController.getRightY());
-	}
-
-	@Override
-	public void end(boolean interrupted) {}
-
-	@Override
-	public boolean isFinished() {
-		return false;
+		drive.arcadeDrive(xboxController.getLeftY(), -xboxController.getLeftX());
 	}
 }

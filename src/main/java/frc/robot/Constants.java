@@ -12,6 +12,7 @@ public final class Constants {
 	
 	// Drive IDs
 	public static final int LEFT_MASTER = 1,  LEFT_SLAVE = 2, RIGHT_MASTER = 3, RIGHT_SLAVE = 4; 
+	public static final int GEAR_SHIFT_IN = 0, GEAR_SHIFT_OUT = 1;		
 
 	// Elevator IDs
 	public static final int LOWER_ID = 5, UPPER_ID = 6;
