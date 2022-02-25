@@ -13,19 +13,19 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climb extends SubsystemBase {
-	private final CANSparkMax climbMotor = new CANSparkMax(CLIMB_MOTOR_ID, MotorType.kBrushless);
-	private final DigitalInput topLimSwitch = new DigitalInput(0);
-	private final DigitalInput botLimSwitch = new DigitalInput(1);
+	private final CANSparkMax climbMotor = new CANSparkMax(CLIMB_MOTOR, MotorType.kBrushless);
+	private final DigitalInput topLimSwitch = new DigitalInput(UPPER_LIMIT);
+	private final DigitalInput botLimSwitch = new DigitalInput(LOWER_LIMIT);
 	public Climb() {
 		climbMotor.setInverted(true);
 	}
 	public void run(double speed) {
 		climbMotor.set(speed);
 	}
+	
 	public boolean isAtTop() {
 		return topLimSwitch.get();
 	}
-
 	public boolean isAtBottom() {
 		return botLimSwitch.get();
 	}

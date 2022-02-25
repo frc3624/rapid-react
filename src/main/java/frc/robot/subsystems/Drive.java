@@ -8,6 +8,7 @@ import static frc.robot.Constants.LEFT_MASTER;
 import static frc.robot.Constants.LEFT_SLAVE;
 import static frc.robot.Constants.RIGHT_MASTER;
 import static frc.robot.Constants.RIGHT_SLAVE;
+import static frc.robot.Constants.PCM;
 import static frc.robot.Constants.GEAR_SHIFT_IN;
 import static frc.robot.Constants.GEAR_SHIFT_OUT;
 
@@ -25,11 +26,12 @@ public class Drive extends SubsystemBase {
 	private final CANSparkMax leftSlave = new CANSparkMax(LEFT_SLAVE, MotorType.kBrushless);
 	private final CANSparkMax rightMaster = new CANSparkMax(RIGHT_MASTER, MotorType.kBrushless);
 	private final CANSparkMax rightSlave = new CANSparkMax(RIGHT_SLAVE, MotorType.kBrushless);
-
 	private final DifferentialDrive diffDrive = new DifferentialDrive(leftMaster, rightMaster);
-	private final DoubleSolenoid gearPiston = new DoubleSolenoid(PneumaticsModuleType.REVPH, GEAR_SHIFT_IN, GEAR_SHIFT_OUT);
+
+	private final DoubleSolenoid gearPiston = new DoubleSolenoid(PCM, PneumaticsModuleType.REVPH, GEAR_SHIFT_IN, GEAR_SHIFT_OUT);
+
 	public Drive() {
-		rightMaster.setInverted(false); // Evo Shifter is mirrored, so invert is necessary
+		rightMaster.setInverted(true); // Evo Shifter is mirrored, so invert is necessary
 		rightSlave.follow(rightMaster);
 		leftSlave.follow(leftMaster);
 		gearPiston.set(Value.kForward);
@@ -39,8 +41,10 @@ public class Drive extends SubsystemBase {
 		double threshold = 0.85;
 		if(Math.sqrt(zRotation*zRotation + xSpeed + xSpeed) < threshold)
 			lowGear();
-		else
+		else {
+			System.out.println(Math.sqrt(zRotation*zRotation + xSpeed + xSpeed));
 			highGear();
+		}
 		diffDrive.arcadeDrive(zRotation, xSpeed);
 	}
 

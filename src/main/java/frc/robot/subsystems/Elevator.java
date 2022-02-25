@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Timer;
+
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
@@ -23,19 +25,24 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 
 public class Elevator extends SubsystemBase {
-	private final WPI_TalonSRX upperElevator = new WPI_TalonSRX(UPPER_ID);
-	private final WPI_TalonSRX lowerElevator = new WPI_TalonSRX(LOWER_ID);
+	private final WPI_TalonSRX upperElevator = new WPI_TalonSRX(UPPER_ELEVATOR);
+	private final WPI_TalonSRX lowerElevator = new WPI_TalonSRX(LOWER_ELEVATOR);
 	private final double ELEVATOR_SPEED = 0.6;
-	private final double CURRENT_LIMIT = 5;
+	private final double CURRENT_LIMIT = 7.25;
 
 	// Color Stuff for Intake
 	private final ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
-    private final ColorMatch colorMatcher = new ColorMatch();
-    private final Color red = new Color(.45068359375 , .3837890625, .165771484375); 
-    private final Color airColor = new Color(.339111328125 , .47119140625, .18994140625); 
-    private final Color blue = new Color(.2, .4, .37);
+	private final ColorMatch colorMatcher = new ColorMatch();
+	private final Color red = new Color(.45068359375 , .3837890625, .165771484375); 
+	private final Color airColor = new Color(.339111328125 , .47119140625, .18994140625); 
+	private final Color blue = new Color(.2, .4, .37);
 	private final Color allianceColor = red; // Make it red or blue
 
+	// Timer
+	private final Timer timer = new Timer();
+	private final double CURRENT_SPIKE_WAIT_TIME = 0.15;
+	private int i = 0;
+	
 	public Elevator() {
 		upperElevator.setInverted(true);
 		lowerElevator.setInverted(true);
@@ -44,6 +51,8 @@ public class Elevator extends SubsystemBase {
 		colorMatcher.addColorMatch(red);
 		colorMatcher.addColorMatch(blue);
 		colorMatcher.addColorMatch(airColor);
+
+		timer.start();
 	}
 
 	/**
@@ -98,43 +107,5 @@ public class Elevator extends SubsystemBase {
 			lowerElevator.set(ControlMode.PercentOutput, -ELEVATOR_SPEED);
 		else
 			lowerElevator.set(ControlMode.PercentOutput, ELEVATOR_SPEED);
-	}
-  
-	/**
-	*  No documentation yet because method's use is unknown as of now
-	*/
-	public void whenUpper() {
-		boolean ready = false;
-		ready = isAtDeadZone() && lowerElevator.getStatorCurrent() >= CURRENT_LIMIT;
-		if (ready)
-			runUpper();
-	}
-
-	/**
-	* Checks to see if the ball is in between the bands
-	* @return Whether or not the ball is at the dead zone
-	*/
-	public boolean isAtDeadZone() {
-		return lowerElevator.getStatorCurrent() < CURRENT_LIMIT;
-	}
-
-	/**
-	* Runs the conveyor/intake system
-	*/
-	public void runLowerRoutine() { 
-		if(!isAtDeadZone())
-			runLower();
-	}
-
-	/**
-	* Runs the motors for the elevator routine
-	*/
-	public void run() {
-		if(isAtDeadZone()){
-			runUpper();
-			runLowerRoutine();
-		} else{
-			runLowerRoutine();
-		}
 	}
 }
