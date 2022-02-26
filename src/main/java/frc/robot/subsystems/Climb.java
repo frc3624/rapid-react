@@ -4,7 +4,11 @@
 
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.*;
+import static frc.robot.Constants.CLIMB_MOTOR;
+import static frc.robot.Constants.EMERGENCY_BOT;
+import static frc.robot.Constants.EMERGENCY_TOP;
+import static frc.robot.Constants.ROLLER_BOT;
+import static frc.robot.Constants.ROLLER_TOP;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;

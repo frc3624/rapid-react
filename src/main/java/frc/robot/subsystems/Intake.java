@@ -4,31 +4,23 @@
 
 package frc.robot.subsystems;
 
+import static frc.robot.Constants.LOWER_INTAKE;
+import static frc.robot.Constants.UPPER_INTAKE;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.Timer;
-
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 
-import static frc.robot.Constants.*;
-
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-/**
- * TODO
- * 
- * Make Documentation for "WhenUpper()" Method, and give it a more descriptive name
- */
 
 public class Intake extends SubsystemBase {
 	private final WPI_TalonSRX upperElevator = new WPI_TalonSRX(UPPER_INTAKE);
 	private final WPI_TalonSRX lowerElevator = new WPI_TalonSRX(LOWER_INTAKE);
 	private final double ELEVATOR_SPEED = 0.6;
-	private final double CURRENT_LIMIT = 7.25;
 
 	// Color Stuff for Intake
 	private final ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
@@ -38,11 +30,6 @@ public class Intake extends SubsystemBase {
 	private final Color blue = new Color(.2, .4, .37);
 	private final Color allianceColor = red; // Make it red or blue
 
-	// Timer
-	private final Timer timer = new Timer();
-	private final double CURRENT_SPIKE_WAIT_TIME = 0.15;
-	private int i = 0;
-	
 	public Intake() {
 		upperElevator.setInverted(true);
 		lowerElevator.setInverted(true);
@@ -51,10 +38,7 @@ public class Intake extends SubsystemBase {
 		colorMatcher.addColorMatch(red);
 		colorMatcher.addColorMatch(blue);
 		colorMatcher.addColorMatch(airColor);
-
-		timer.start();
 	}
-
 	/**
 	* Gives current color seen by the sensor
 	* @return Color object for current color

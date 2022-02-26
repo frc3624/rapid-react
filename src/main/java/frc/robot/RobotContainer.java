@@ -1,10 +1,19 @@
 package frc.robot;
 
+import static frc.robot.Constants.BUTTON_A;
+import static frc.robot.Constants.BUTTON_B;
+import static frc.robot.Constants.BUTTON_LB;
+import static frc.robot.Constants.BUTTON_X;
+import static frc.robot.Constants.BUTTON_Y;
+import static frc.robot.Constants.CONTROLLER_ID;
+
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.drive.DriveTrain;
-import frc.robot.commands.intake.RunIntake;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.climbing.ClimbingDown;
 import frc.robot.commands.climbing.ClimbingUp;
+import frc.robot.commands.drive.DriveTrain;
+import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.shooting.RunShooter;
 import frc.robot.commands.shooting.tracking.TrackTarget;
 import frc.robot.subsystems.Climb;
@@ -12,10 +21,6 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
-import static frc.robot.Constants.*;
 
 public class RobotContainer {
 	// Controller and Buttons

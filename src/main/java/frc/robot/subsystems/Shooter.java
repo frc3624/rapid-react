@@ -4,6 +4,10 @@
 
 package frc.robot.subsystems;
 
+import static frc.robot.Constants.SHOOTER_1;
+import static frc.robot.Constants.SHOOTER_2;
+import static frc.robot.Constants.TURNTABLE_MOTOR;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
@@ -13,9 +17,6 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import static frc.robot.Constants.SHOOTER_1;
-import static frc.robot.Constants.SHOOTER_2;
-import static frc.robot.Constants.TURNTABLE_MOTOR;
 
 public class Shooter extends SubsystemBase {
 	private final CANSparkMax turnMotor = new CANSparkMax(TURNTABLE_MOTOR, MotorType.kBrushless);
