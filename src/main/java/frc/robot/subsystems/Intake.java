@@ -24,9 +24,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * Make Documentation for "WhenUpper()" Method, and give it a more descriptive name
  */
 
-public class Elevator extends SubsystemBase {
-	private final WPI_TalonSRX upperElevator = new WPI_TalonSRX(UPPER_ELEVATOR);
-	private final WPI_TalonSRX lowerElevator = new WPI_TalonSRX(LOWER_ELEVATOR);
+public class Intake extends SubsystemBase {
+	private final WPI_TalonSRX upperElevator = new WPI_TalonSRX(UPPER_INTAKE);
+	private final WPI_TalonSRX lowerElevator = new WPI_TalonSRX(LOWER_INTAKE);
 	private final double ELEVATOR_SPEED = 0.6;
 	private final double CURRENT_LIMIT = 7.25;
 
@@ -43,7 +43,7 @@ public class Elevator extends SubsystemBase {
 	private final double CURRENT_SPIKE_WAIT_TIME = 0.15;
 	private int i = 0;
 	
-	public Elevator() {
+	public Intake() {
 		upperElevator.setInverted(true);
 		lowerElevator.setInverted(true);
 
