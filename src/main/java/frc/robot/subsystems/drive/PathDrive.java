@@ -6,13 +6,20 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-import frc.robot.Constants;
+import frc.robot.subsystems.NavX;
 
-// Autonomous Driving routine which follows a path
+import static frc.robot.FieldConstants.*;
+
+/**
+ * Need to fix this dumpster fire
+ *
+ * Wrong gyro, wrong a lot of things
+ * Will figure this out soon hopefully
+ */
 public class PathDrive extends Drive{
 	public PathDrive() {
-		m_leftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
-    	m_rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
+		m_leftEncoder.setDistancePerPulse(kEncoderDistancePerPulse);
+    	m_rightEncoder.setDistancePerPulse(kEncoderDistancePerPulse);
 
 		resetEncoders();
     	m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d());
@@ -20,19 +27,20 @@ public class PathDrive extends Drive{
 	//Left drive encoder- measures rotation of wheels
 	private final Encoder m_leftEncoder =
       new Encoder(
-          Constants.kLeftEncoderPorts[0],
-          Constants.kLeftEncoderPorts[1],
-          Constants.kLeftEncoderReversed);
+          kLeftEncoderPorts[0],
+          kLeftEncoderPorts[1],
+          kLeftEncoderReversed);
 
 	//right drive encoder- measures rotation of wheels
   	private final Encoder m_rightEncoder =
       new Encoder(
-          Constants.kRightEncoderPorts[0],
-          Constants.kRightEncoderPorts[1],
-          Constants.kRightEncoderReversed);
+          kRightEncoderPorts[0],
+          kRightEncoderPorts[1],
+          kRightEncoderReversed);
     
 	//gyroscope measures the change in the robot's heading
 	private final Gyro m_gyro = new ADXRS450_Gyro();
+    private final NavX navX = new NavX();
 
 	//the odometry tracks the robot's pose
 	private final DifferentialDriveOdometry m_odometry;

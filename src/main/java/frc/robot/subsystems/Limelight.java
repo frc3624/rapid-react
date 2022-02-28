@@ -7,20 +7,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Limelight extends SubsystemBase {
 	private final NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 	
-	public Limelight() {
-
-	}
-
-	/*
-	* The following methods could definitely be static since they are just referencing some other
-	* static methods.
-	* Even without the servo, I would have made them static just so Limelight could be similar to the
-	* other subsystems.
-	* With the servo, these values will change depending on where the limelight is currently facing,
-	* so these should only bee called once whatever command that is using this has reserved this
-	* subsystem and made it face wherever it needs to.
-	*/
-
 	/**
 	 * @return Whether or not the Limelight has any valid targets
 	 */
@@ -78,5 +64,4 @@ public class Limelight extends SubsystemBase {
 	@Override
 	public void periodic() {
 	}
-
 }

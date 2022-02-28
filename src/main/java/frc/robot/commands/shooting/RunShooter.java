@@ -5,7 +5,7 @@
 package frc.robot.commands.shooting;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 
@@ -14,13 +14,13 @@ import frc.robot.subsystems.Shooter;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class RunShooter extends ParallelCommandGroup {
 	private final Shooter shooter;
-	private final Elevator elevator;
+	private final Intake elevator;
 	private final Limelight limelight;
-	public RunShooter(Shooter shooter, Elevator elevator, Limelight limelight) {
+	public RunShooter(Shooter shooter, Intake elevator, Limelight limelight) {
 		this.shooter = shooter;
 		this.elevator = elevator;
 		this.limelight = limelight;
-		addCommands(new DumpElevator(elevator), new Shoot(shooter, limelight));
+		addCommands(new DumpIntake(elevator), new Shoot(shooter, limelight));
 	}
 }
 

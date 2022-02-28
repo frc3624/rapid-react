@@ -7,15 +7,21 @@ package frc.robot.commands.shooting.tracking;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Limelight.LedMode;
 
 public class TrackTarget extends CommandBase {
 	private final Limelight limelight;
 	private final Shooter shooter;
-	private final double kPRotational = 1.0 / 15;
+	private final double kPRotational = .01;
 	public TrackTarget(Shooter shooter, Limelight limelight) {
 		this.shooter = shooter;
 		this.limelight = limelight;
 		addRequirements(shooter);
+	}
+
+	@Override
+	public void initialize() {
+		limelight.setLedMode(LedMode.ON);
 	}
 
 	@Override
@@ -35,7 +41,6 @@ public class TrackTarget extends CommandBase {
 	private double aimToGoal() {
 		double error = 0 - (-limelight.getHorizontalDistance());
 		if (Math.abs(error) < .1) error = 0; 
-
 		double output = kPRotational * error;
 		return output;
 	}
