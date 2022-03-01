@@ -9,6 +9,8 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+
 public class NavX {
     private final AHRS ahrs = new AHRS();
 
@@ -18,7 +20,7 @@ public class NavX {
     public double getAngle() {
         return ahrs.getAngle();
     }
-    public double getRotationalVelocity() {
+    public double getRate() {
         return ahrs.getRate();
     }
     public boolean isRotating() {
@@ -36,4 +38,10 @@ public class NavX {
     public float getYVelocity() {
         return ahrs.getVelocityY();
     }
+	public Rotation2d getRotation2d() {
+		return ahrs.getRotation2d();
+	}
+	public void reset() {
+		ahrs.reset();
+	}
 }

@@ -3,8 +3,6 @@ package frc.robot;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 
 public class FieldConstants {
-    // All values are in meters, unless utilizing a conversion util
-    public static final double ROBOT_HEIGHT = 1;
 	//Calculated constants for autonomous
 	/**
 	 * These are calculated using the SysId tool
