@@ -29,11 +29,18 @@ public final class Constants {
 	// Shooter Motors
 	public static final int SHOOTER_1 = 8, SHOOTER_2 = 9, TURNTABLE_MOTOR = 10;
 
-	//Calculated constants for autonomous
+	//Calculated constants for autonomous (robot characterization)
 	/**
-	 * These are calculated using the SysId tool
+	 * These are calculated using the SysId tool 
 	 * these include various gains, which measure the amplification of the input signal
 	 * the gains are needed in order to correct for errors in autonomous
+	 * 
+	 * The voltage needed follows the equation:
+	 * 	V = kS * sgn(d) + kV * d' + kA * d", where d is distance, d' is velocity, and d" is acceleration
+	 * 
+	 * kS, kV, and kA are found using the frc characterization tool utilizing encoders
+	 * 
+	 * the frc characterization tool can also be used to calculate optimal values of PID constants
 	 */
 	public static final double ksVolts = 0.22;
     public static final double kvVoltSecondsPerMeter = 1.98;
@@ -43,12 +50,13 @@ public final class Constants {
 	/**
 	 * this class allows us to convert from the robot's speed to the wheel speeds and vice versa
 	 * it takes into account track width
+	 * this class uses the odometry and the trajectory to help guide the robot
 	 */
 	public static final double kTrackwidthMeters = 0.69;
-    public static final DifferentialDriveKinematics kDriveKinematics =
+    public static final DifferentialDriveKinematics kinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
-	//Ramsete parameters for autonomous
+	//Ramsete parameters for autonomous 
 	/**
 	 * These have to do with ramsete, which executes commands involving the trajectory
 	 * larger values of b make convergence more aggressive (acts as a proportional term)

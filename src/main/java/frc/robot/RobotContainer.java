@@ -1,8 +1,6 @@
 package frc.robot;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -56,16 +54,16 @@ public class RobotContainer {
 	 * The path already specifies voltage/speed/acceleration constraints
 	 * unsure if in RobotContainer or in Robot
 	 */
-	String trajectoryJSON = "paths/testautonomous.wpilib.json";
-	Trajectory trajectory = new Trajectory();
+	String trajectoryJSON = "paths/YourPath.wpilib.json";
+	Trajectory trajectory;
 
-	public void robotInit() {
-   		try {
-      		Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
-      		trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-   		} catch (IOException ex) {
-      		DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
-   		}
+	public void importPathWeaver() {
+		try {
+			Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+			trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+	  	} catch (IOException ex) {
+			DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+	  	}
 	}
 	
 	public RobotContainer() {
@@ -88,13 +86,11 @@ public class RobotContainer {
 				trajectory,
 				pathDrive::getPose,
 				new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
-				new SimpleMotorFeedforward(Constants.ksVolts,
-										Constants.kvVoltSecondsPerMeter,
-										Constants.kaVoltSecondsSquaredPerMeter),
-				Constants.kDriveKinematics,
+				pathDrive.getFeedforward(),
+				Constants.kinematics,
 				pathDrive::getWheelSpeeds,
-				new PIDController(Constants.kPDriveVel, 0, 0),
-				new PIDController(Constants.kPDriveVel, 0, 0),
+				pathDrive.getLeftPidController(),
+				pathDrive.getRightPidController(),
 				// RamseteCommand passes volts to the callback
 				pathDrive::tankDriveVolts,
 				pathDrive
