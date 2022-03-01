@@ -3,7 +3,6 @@ package frc.robot;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 
 public class FieldConstants {
-	//Calculated constants for autonomous
 	/**
 	 * These are calculated using the SysId tool
 	 * these include various gains, which measure the amplification of the input signal
@@ -18,7 +17,7 @@ public class FieldConstants {
 	 * this class allows us to convert from the robot's speed to the wheel speeds and vice versa
 	 * it takes into account track width
 	 */
-	public static final double kTrackwidthMeters = 0.69;
+	public static final double kTrackwidthMeters = 0.69; // horizontal dist. between wheels
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
@@ -43,7 +42,7 @@ public class FieldConstants {
 	 * 1 pulse = 1 cycle in the encoder
 	 * the distance per pulse is measured by counting how many pulses it takes for a wheel to make one revolution
 	 */
-	public static final double kEncoderDistancePerPulse = 0.0;
+	public static final double kEncoderDistancePerTick = 0.0;
 
 	//autonomous constants
 	/**
