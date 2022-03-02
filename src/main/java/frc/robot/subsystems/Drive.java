@@ -63,5 +63,6 @@ public class Drive extends SubsystemBase {
 	public void periodic() {
 		SmartDashboard.putNumber("x velocity", navx.getXVelocity());
 		SmartDashboard.putNumber("y velocity", navx.getYVelocity());
+		SmartDashboard.putNumber("z velocity", navx.getZVelocity());
 	}
 }

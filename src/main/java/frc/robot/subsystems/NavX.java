@@ -36,6 +36,11 @@ public class NavX {
     public float getYVelocity() {
         return ahrs.getVelocityY();
     }
+
+    public float getZVelocity() {
+      return ahrs.getVelocityZ();
+    }
+    
 	public Rotation2d getRotation2d() {
 		return ahrs.getRotation2d();
 	}
