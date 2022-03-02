@@ -11,6 +11,7 @@ import static frc.robot.Constants.LEFT_SLAVE;
 import static frc.robot.Constants.PCM;
 import static frc.robot.Constants.RIGHT_MASTER;
 import static frc.robot.Constants.RIGHT_SLAVE;
+import frc.robot.subsystems.NavX;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drive extends SubsystemBase {
@@ -38,13 +40,13 @@ public class Drive extends SubsystemBase {
 	}
 
 	public void arcadeDrive(double zRotation, double xSpeed) {
-		// double threshold = 0.5;
-		// if(Math.sqrt(zRotation*zRotation + xSpeed + xSpeed) < threshold)
-		// 	lowGear();
-		// else {
-		// 	System.out.println(Math.sqrt(zRotation*zRotation + xSpeed + xSpeed));
-		// 	highGear();
-		// }
+		double threshold = 0.5;
+		if(Math.sqrt(zRotation*zRotation + xSpeed + xSpeed) < threshold)
+			lowGear();
+		else {
+			System.out.println(Math.sqrt(zRotation*zRotation + xSpeed + xSpeed));
+			highGear();
+		}
 		diffDrive.arcadeDrive(zRotation, xSpeed);
 	}
 
@@ -54,5 +56,12 @@ public class Drive extends SubsystemBase {
 	
 	public void lowGear() {
 		gearPiston.set(Value.kForward);
+	}
+
+	private final NavX navx = new NavX();
+
+	public void periodic() {
+		SmartDashboard.putNumber("x velocity", navx.getXVelocity());
+		SmartDashboard.putNumber("y velocity", navx.getYVelocity());
 	}
 }
