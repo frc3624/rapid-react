@@ -4,6 +4,10 @@
 
 package frc.robot.subsystems;
 
+import static frc.robot.Constants.SHOOTER_1;
+import static frc.robot.Constants.SHOOTER_2;
+import static frc.robot.Constants.TURNTABLE_MOTOR;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
@@ -13,19 +17,16 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import static frc.robot.Constants.SHOOTER_1;
-import static frc.robot.Constants.SHOOTER_2;
-import static frc.robot.Constants.TURNTABLE_MOTOR;
 
 public class Shooter extends SubsystemBase {
 	private final CANSparkMax turnMotor = new CANSparkMax(TURNTABLE_MOTOR, MotorType.kBrushless);
 	private final WPI_TalonFX primaryShooter = new WPI_TalonFX(SHOOTER_1);
 	private final WPI_TalonFX followShooter = new WPI_TalonFX(SHOOTER_2);
 
-	private double kP = .15;
-	private double kI = 0.00002;
-	private double kD = 2.25;
-	private double kF = 0.048;
+	private double kP = 0;
+	private double kI = 0;
+	private double kD = 0;
+	private double kF = 0;
 
 	// On the fly PID Tuning
 	private double rotationalVelocity = 0;

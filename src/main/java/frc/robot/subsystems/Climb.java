@@ -4,7 +4,11 @@
 
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.*;
+import static frc.robot.Constants.CLIMB_MOTOR;
+import static frc.robot.Constants.EMERGENCY_BOT;
+import static frc.robot.Constants.EMERGENCY_TOP;
+import static frc.robot.Constants.ROLLER_BOT;
+import static frc.robot.Constants.ROLLER_TOP;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -14,8 +18,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climb extends SubsystemBase {
 	private final CANSparkMax climbMotor = new CANSparkMax(CLIMB_MOTOR, MotorType.kBrushless);
-	private final DigitalInput topLimSwitch = new DigitalInput(UPPER_LIMIT);
-	private final DigitalInput botLimSwitch = new DigitalInput(LOWER_LIMIT);
+	private final DigitalInput emergencyTopSwitch = new DigitalInput(EMERGENCY_TOP);
+	private final DigitalInput emergencyBotSwitch = new DigitalInput(EMERGENCY_BOT);
+	private final DigitalInput rollerTopSwitch = new DigitalInput(ROLLER_TOP);
+	private final DigitalInput rollerBotSwitch = new DigitalInput(ROLLER_BOT);
 	public Climb() {
 		climbMotor.setInverted(true);
 	}
@@ -24,10 +30,16 @@ public class Climb extends SubsystemBase {
 	}
 	
 	public boolean isAtTop() {
-		return topLimSwitch.get();
+		return rollerTopSwitch.get();
 	}
 	public boolean isAtBottom() {
-		return botLimSwitch.get();
+		return rollerBotSwitch.get();
+	}
+	public boolean isEmergencyTop() {
+		return emergencyTopSwitch.get();
+	}
+	public boolean isEmergencyBot() {
+		return emergencyBotSwitch.get();
 	}
 }
 

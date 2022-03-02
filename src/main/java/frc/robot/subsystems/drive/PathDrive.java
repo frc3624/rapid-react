@@ -5,43 +5,30 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
-import frc.robot.Constants;
+import frc.robot.subsystems.NavX;
 
-// Autonomous Driving routine which follows a path
+import static frc.robot.FieldConstants.*;
+
+import com.revrobotics.RelativeEncoder;
+
 public class PathDrive extends Drive{
 	Pose2d pose;
-
-	public PathDrive() {
-		leftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
-    	rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
-
-		resetEncoders();
-    	odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
-	}
-	//Left drive encoder- measures rotation of wheels
-	private final Encoder leftEncoder =
-      new Encoder(
-          Constants.kLeftEncoderPorts[0],
-          Constants.kLeftEncoderPorts[1],
-          Constants.kLeftEncoderReversed);
-
-	//right drive encoder- measures rotation of wheels
-  	private final Encoder rightEncoder =
-      new Encoder(
-          Constants.kRightEncoderPorts[0],
-          Constants.kRightEncoderPorts[1],
-          Constants.kRightEncoderReversed);
-    
-	//gyroscope measures the change in the robot's heading
-	private final Gyro gyro = new ADXRS450_Gyro();
-
+	private final RelativeEncoder leftMasterEncoder = leftMaster.getEncoder();
+	private final RelativeEncoder rightMasterEncoder = rightMaster.getEncoder();
 	//the odometry tracks the robot's pose 
 	private final DifferentialDriveOdometry odometry;
+	//gyroscope measures the change in the robot's heading
+	private final NavX navX = new NavX();
 
-	SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.ksVolts, Constants.kvVoltSecondsPerMeter, Constants.kaVoltSecondsSquaredPerMeter);
+	public PathDrive() {
+		leftMasterEncoder.setPositionConversionFactor(kEncoderDistancePerTick);
+		rightMasterEncoder.setPositionConversionFactor(kEncoderDistancePerTick);
+
+		resetEncoders();
+    	odometry = new DifferentialDriveOdometry(navX.getRotation2d());
+	}
+
+	SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(ksVolts, kvVoltSecondsPerMeter, kaVoltSecondsSquaredPerMeter);
 
 	//fill in with kp, ki, and kd values later
 	PIDController leftPidController = new PIDController(0, 0, 0);
@@ -51,10 +38,11 @@ public class PathDrive extends Drive{
 		return feedforward;
 	}
 
+
 	@Override
   	public void periodic() {
-    // Update the odometry in the periodic block for every main loop iteration
-    	pose = odometry.update(gyro.getRotation2d(), leftEncoder.getDistance(), rightEncoder.getDistance());
+		// Update the odometry in the periodic block for every main loop iteration
+		odometry.update(navX.getRotation2d(), leftMasterEncoder.getPosition(), rightMasterEncoder.getPosition());
   	}
 
 	//returns current pose
@@ -64,18 +52,18 @@ public class PathDrive extends Drive{
 
 	//returns current wheel speeds
 	public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-		return new DifferentialDriveWheelSpeeds(leftEncoder.getRate(), rightEncoder.getRate());
+		return new DifferentialDriveWheelSpeeds(leftMasterEncoder.getVelocity(), rightMasterEncoder.getVelocity());
 	}
 
 	//returns current heading
 	public double getHeading() {
-		return gyro.getRotation2d().getDegrees();
+		return navX.getRotation2d().getDegrees();
 	}
 
 	//resets odometry to specified pose
 	public void resetOdometry(Pose2d pose) {
 		resetEncoders();
-		odometry.resetPosition(pose, gyro.getRotation2d());
+		odometry.resetPosition(pose, navX.getRotation2d());
 	}
 
 	//controls motors through setting voltages
@@ -87,21 +75,21 @@ public class PathDrive extends Drive{
 
 	//resets drive encoders to read a position of 0
 	public void resetEncoders() {
-		leftEncoder.reset();
-		rightEncoder.reset();
+		leftMasterEncoder.setPosition(0);
+		rightMasterEncoder.setPosition(0);
 	}
 
 	//returns average of 2 encoder readings
 	public double getAverageEncoderDistance() {
-		return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2.0;
+		return (leftMasterEncoder.getPosition() + rightMasterEncoder.getPosition()) / 2.0;
 	}
 
-	public Encoder getLeftEncoder() {
-		return leftEncoder;
+	public RelativeEncoder getLeftEncoder() {
+		return leftMasterEncoder;
 	}
 
-	public Encoder getRightEncoder() {
-		return rightEncoder;
+	public RelativeEncoder getRightEncoder() {
+		return rightMasterEncoder;
 	}
 
 	//sets the max output of the drive, used for scaling speeds
@@ -111,12 +99,12 @@ public class PathDrive extends Drive{
 
 	//resets heading to 0
 	public void zeroHeading() {
-		gyro.reset();
+		navX.reset();
 	}
 
 	//returns robot's current turn rate
 	public double getTurnRate() {
-		return -gyro.getRate();
+		return -navX.getRate();
 	}
 
 	public PIDController getLeftPidController() {

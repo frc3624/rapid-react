@@ -5,11 +5,11 @@
 package frc.robot.commands.shooting;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
 
-public class DumpElevator extends CommandBase {
-	private final Elevator elevator;
-	public DumpElevator(Elevator elevator) {
+public class DumpIntake extends CommandBase {
+	private final Intake elevator;
+	public DumpIntake(Intake elevator) {
 		this.elevator = elevator;
 		addRequirements(elevator);
 	}

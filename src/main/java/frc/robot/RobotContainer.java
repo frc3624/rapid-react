@@ -7,14 +7,14 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.drive.DriveTrain;
-import frc.robot.commands.RunElevator;
+import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.climbing.ClimbingDown;
 import frc.robot.commands.climbing.ClimbingUp;
 import frc.robot.commands.shooting.RunShooter;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.PathDrive;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,23 +33,23 @@ public class RobotContainer {
 	private final JoystickButton climbDownButton = new JoystickButton(xboxController, BUTTON_A);
 	private final JoystickButton elevatorButton = new JoystickButton(xboxController, BUTTON_X);
 	private final JoystickButton shootingButton = new JoystickButton(xboxController, BUTTON_Y);
-	
+
 	// Subsystems
 	private final Drive drive = new Drive();
 	private final PathDrive pathDrive = new PathDrive();
 	private final Climb climb = new Climb();
-	private final Elevator elevator = new Elevator();
+	private final Intake elevator = new Intake();
 	private final Shooter shooter = new Shooter();
-	private final Limelight limelight = new Limelight(); 
-	
+	private final Limelight limelight = new Limelight();
+
 	// Commands
 	private final DriveTrain driveTrain = new DriveTrain(drive, xboxController);
-	private final RunElevator runElevator = new RunElevator(elevator);
+	private final RunIntake runIntake = new RunIntake(elevator);
 	private final ClimbingDown climbingDown = new ClimbingDown(climb, xboxController);
 	private final ClimbingUp climbingUp = new ClimbingUp(climb, xboxController);
 	private final RunShooter runShooter = new RunShooter(shooter, elevator, limelight);
 	
-		/**
+	/**
 	 * Here, we download the path as a json file so it can be traversed by the robot
 	 * The path already specifies voltage/speed/acceleration constraints
 	 * unsure if in RobotContainer or in Robot
@@ -66,28 +66,29 @@ public class RobotContainer {
 	  	}
 	}
 	
-	public RobotContainer() {
-		configureButtonBindings();
-		drive.setDefaultCommand(driveTrain);
-	}
+    public RobotContainer() {
+        configureButtonBindings();
+        drive.setDefaultCommand(driveTrain);
+    }
 
-	private void configureButtonBindings() {
-		climbDownButton.whileHeld(climbingDown);
-		climbUpButton.whileHeld(climbingUp);
-		elevatorButton.whileHeld(runElevator);
-	}
+    private void configureButtonBindings() {
+        climbDownButton.whileHeld(climbingDown);
+        climbUpButton.whileHeld(climbingUp);
+        elevatorButton.whileHeld(runIntake);
+        shootingButton.whileHeld(runShooter);
+    }
 
-	public Command getAutonomousCommand() {
-		/**
-		 * The ramsete command allows us to execute the autonomous code
-		 */
+    public Command getAutonomousCommand() {
+        /**
+        * The ramsete command allows us to execute the autonomous code
+        */
 		RamseteCommand ramseteCommand =
 			new RamseteCommand(
 				trajectory,
 				pathDrive::getPose,
-				new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
+				new RamseteController(FieldConstants.kRamseteB, FieldConstants.kRamseteZeta),
 				pathDrive.getFeedforward(),
-				Constants.kinematics,
+				FieldConstants.kinematics,
 				pathDrive::getWheelSpeeds,
 				pathDrive.getLeftPidController(),
 				pathDrive.getRightPidController(),
@@ -95,10 +96,10 @@ public class RobotContainer {
 				pathDrive::tankDriveVolts,
 				pathDrive
 		);
-		
+
 		// Reset odometry to the starting pose of the trajectory.
 		pathDrive.resetOdometry(trajectory.getInitialPose());
-		
+
 		// Run path following command, then stop at the end.
 		return ramseteCommand.andThen(() -> pathDrive.tankDriveVolts(0, 0));
 	}
