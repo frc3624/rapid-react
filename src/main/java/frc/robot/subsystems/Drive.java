@@ -41,12 +41,12 @@ public class Drive extends SubsystemBase {
 
 	public void arcadeDrive(double zRotation, double xSpeed) {
 		double threshold = 0.5;
-		if(Math.sqrt(zRotation*zRotation + xSpeed + xSpeed) < threshold)
-			lowGear();
-		else {
-			System.out.println(Math.sqrt(zRotation*zRotation + xSpeed + xSpeed));
-			highGear();
-		}
+		// if(Math.sqrt(zRotation*zRotation + xSpeed + xSpeed) < threshold)
+		// 	lowGear();
+		// else {
+		// 	System.out.println(Math.sqrt(zRotation*zRotation + xSpeed + xSpeed));
+		// 	highGear();
+		// }
 		diffDrive.arcadeDrive(zRotation, xSpeed);
 	}
 
