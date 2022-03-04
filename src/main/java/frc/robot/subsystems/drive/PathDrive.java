@@ -15,7 +15,7 @@ public class PathDrive extends Drive{
 	Pose2d pose;
 	private final RelativeEncoder leftMasterEncoder = leftMaster.getEncoder();
 	private final RelativeEncoder rightMasterEncoder = rightMaster.getEncoder();
-	//the odometry tracks the robot's pose 
+	//the odometry tracks the robot's pose
 	private final DifferentialDriveOdometry odometry;
 	//gyroscope measures the change in the robot's heading
 	private final NavX navX = new NavX();
@@ -25,7 +25,7 @@ public class PathDrive extends Drive{
 		rightMasterEncoder.setPositionConversionFactor(kEncoderDistancePerTick);
 
 		resetEncoders();
-    	odometry = new DifferentialDriveOdometry(navX.getRotation2d());
+		odometry = new DifferentialDriveOdometry(navX.getRotation2d());
 	}
 
 	SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(ksVolts, kvVoltSecondsPerMeter, kaVoltSecondsSquaredPerMeter);
@@ -33,17 +33,17 @@ public class PathDrive extends Drive{
 	//fill in with kp, ki, and kd values later
 	PIDController leftPidController = new PIDController(0, 0, 0);
 	PIDController rightPidController = new PIDController(0, 0, 0);
-	
+
 	public SimpleMotorFeedforward getFeedforward() {
 		return feedforward;
 	}
 
 
 	@Override
-  	public void periodic() {
+	public void periodic() {
 		// Update the odometry in the periodic block for every main loop iteration
 		odometry.update(navX.getRotation2d(), leftMasterEncoder.getPosition(), rightMasterEncoder.getPosition());
-  	}
+	}
 
 	//returns current pose
 	public Pose2d getPose() {
@@ -67,6 +67,7 @@ public class PathDrive extends Drive{
 	}
 
 	//controls motors through setting voltages
+	// May need to adjust and add a scaling factor due to robot bend
 	public void tankDriveVolts(double leftVolts, double rightVolts) {
 		leftMaster.setVoltage(leftVolts);
 		rightMaster.setVoltage(rightVolts);
