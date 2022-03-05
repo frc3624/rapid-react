@@ -8,10 +8,10 @@ public class FieldConstants {
 	 * these include various gains, which measure the amplification of the input signal
 	 * the gains are needed in order to correct for errors in autonomous
 	 */
-	public static final double ksVolts = 0.22;
-    public static final double kvVoltSecondsPerMeter = 1.98;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.2;
-    public static final double kPDriveVel = 8.5;
+		public static final double ksVolts = 0.13713;
+    public static final double kvVoltSecondsPerMeter = 6.7153;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.89817;
+    public static final double kPDriveVel = 8.6147;
 
 	/**
 	 * this class allows us to convert from the robot's speed to the wheel speeds and vice versa
