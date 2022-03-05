@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-
 public final class Constants {
 	// Controller + Joystick IDs
 	public static final int CONTROLLER_ID = 0;
