@@ -54,16 +54,16 @@ public class RobotContainer {
 	 * The path already specifies voltage/speed/acceleration constraints
 	 * unsure if in RobotContainer or in Robot
 	 */
-	String trajectoryJSON = "paths/YourPath.wpilib.json";
+	String trajectoryJSON = "paths/Test.json";
 	Trajectory trajectory;
 
 	public void importPathWeaver() {
 		try {
 			Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
 			trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-	  	} catch (IOException ex) {
+		} catch (IOException ex) {
 			DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
-	  	}
+		}
 	}
 	
     public RobotContainer() {
@@ -72,35 +72,33 @@ public class RobotContainer {
     }
 
     private void configureButtonBindings() {
-        climbDownButton.whileHeld(climbingDown);
-        climbUpButton.whileHeld(climbingUp);
-        elevatorButton.whileHeld(runIntake);
-        shootingButton.whileHeld(runShooter);
+			climbDownButton.whileHeld(climbingDown);
+			climbUpButton.whileHeld(climbingUp);
+			elevatorButton.whileHeld(runIntake);
+			shootingButton.whileHeld(runShooter);
     }
 
     public Command getAutonomousCommand() {
-        /**
-        * The ramsete command allows us to execute the autonomous code
-        */
-		RamseteCommand ramseteCommand =
-			new RamseteCommand(
-				trajectory,
-				pathDrive::getPose,
-				new RamseteController(FieldConstants.kRamseteB, FieldConstants.kRamseteZeta),
-				pathDrive.getFeedforward(),
-				FieldConstants.kinematics,
-				pathDrive::getWheelSpeeds,
-				pathDrive.getLeftPidController(),
-				pathDrive.getRightPidController(),
-				// RamseteCommand passes volts to the callback
-				pathDrive::tankDriveVolts,
-				pathDrive
-		);
-
-		// Reset odometry to the starting pose of the trajectory.
-		pathDrive.resetOdometry(trajectory.getInitialPose());
-
-		// Run path following command, then stop at the end.
-		return ramseteCommand.andThen(() -> pathDrive.tankDriveVolts(0, 0));
+			/**
+			* The ramsete command allows us to execute the autonomous code
+			*/
+			RamseteCommand ramseteCommand =
+				new RamseteCommand(
+					trajectory,
+					pathDrive::getPose,
+					new RamseteController(FieldConstants.kRamseteB, FieldConstants.kRamseteZeta),
+					pathDrive.getFeedforward(),
+					FieldConstants.kinematics,
+					pathDrive::getWheelSpeeds,
+					pathDrive.getLeftPidController(),
+					pathDrive.getRightPidController(),
+					// RamseteCommand passes volts to the callback
+					pathDrive::tankDriveVolts,
+					pathDrive
+			);
+			// Reset odometry to the starting pose of the trajectory.
+			pathDrive.resetOdometry(trajectory.getInitialPose());
+			// Run path following command, then stop at the end.
+			return ramseteCommand.andThen(() -> pathDrive.tankDriveVolts(0, 0));
 	}
 }
