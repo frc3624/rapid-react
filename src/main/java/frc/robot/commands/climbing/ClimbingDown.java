@@ -32,7 +32,7 @@ public class ClimbingDown extends CommandBase {
 
 	@Override
 	public boolean isFinished() {
-		return climb.isAtBottom() || climb.isEmergencyBot();
+		return  climb.isEmergencyBot();
 	}
 }
 

@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Intake extends SubsystemBase {
 	private final WPI_TalonSRX upperElevator = new WPI_TalonSRX(UPPER_INTAKE);
 	private final WPI_TalonSRX lowerElevator = new WPI_TalonSRX(LOWER_INTAKE);
-	private final double ELEVATOR_SPEED = 0.6;
+	private final double ELEVATOR_SPEED = 0.5;
 
 	// Color Stuff for Intake
 	private final ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
@@ -33,7 +33,6 @@ public class Intake extends SubsystemBase {
 	public Intake() {
 		upperElevator.setInverted(true);
 		lowerElevator.setInverted(true);
-
 		// Needed for the colors of the balls
 		colorMatcher.addColorMatch(red);
 		colorMatcher.addColorMatch(blue);

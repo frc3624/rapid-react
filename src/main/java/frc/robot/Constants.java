@@ -25,5 +25,5 @@ public final class Constants {
 	public static final int EMERGENCY_TOP = 0, EMERGENCY_BOT = 1, ROLLER_TOP = 2, ROLLER_BOT = 3;
 
 	// Shooter Motors
-	public static final int SHOOTER_1 = 8, SHOOTER_2 = 9, TURNTABLE_MOTOR = 10;
+	public static final int SHOOTER_1 = 8, SHOOTER_2 = 9, TURNTABLE_MOTOR = 10, SERVO = 0;
 }

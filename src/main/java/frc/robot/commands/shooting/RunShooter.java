@@ -9,18 +9,9 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class RunShooter extends ParallelCommandGroup {
-	private final Shooter shooter;
-	private final Intake elevator;
-	private final Limelight limelight;
-	public RunShooter(Shooter shooter, Intake elevator, Limelight limelight) {
-		this.shooter = shooter;
-		this.elevator = elevator;
-		this.limelight = limelight;
-		addCommands(new DumpIntake(elevator), new Shoot(shooter, limelight));
+	public RunShooter(Shooter shooter, Intake intake, Limelight limelight) {
+		addCommands(new DumpIntake(intake), new Shoot(shooter, limelight));
 	}
 }
 

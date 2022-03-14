@@ -26,7 +26,8 @@ public class Shoot extends CommandBase {
 
 	@Override
 	public void execute() {
-		shooter.setLinearSpeed();
+		shooter.setFixedLinearSpeed();
+		// shooter.setShootMotorSpeed(0.5);
 	}
 
 	@Override
@@ -40,4 +41,3 @@ public class Shoot extends CommandBase {
 	return false;
 	}
 }
-

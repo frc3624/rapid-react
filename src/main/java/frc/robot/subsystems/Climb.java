@@ -11,6 +11,7 @@ import static frc.robot.Constants.ROLLER_BOT;
 import static frc.robot.Constants.ROLLER_TOP;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -24,6 +25,8 @@ public class Climb extends SubsystemBase {
 	private final DigitalInput rollerBotSwitch = new DigitalInput(ROLLER_BOT);
 	public Climb() {
 		climbMotor.setInverted(true);
+		// Setting, just in case it isn't set already
+		climbMotor.setIdleMode(IdleMode.kBrake);
 	}
 	public void run(double speed) {
 		climbMotor.set(speed);
