@@ -3,18 +3,20 @@ package frc.robot;
 import static frc.robot.Constants.BUTTON_A;
 import static frc.robot.Constants.BUTTON_B;
 import static frc.robot.Constants.BUTTON_LB;
+import static frc.robot.Constants.BUTTON_RB;
 import static frc.robot.Constants.BUTTON_X;
 import static frc.robot.Constants.BUTTON_Y;
 import static frc.robot.Constants.CONTROLLER_ID;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Command; 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.controls.DPadButton;
 import frc.controls.DPadButton.DPadDirection;
 import frc.robot.commands.climbing.ClimbingDown;
 import frc.robot.commands.climbing.ClimbingUp;
 import frc.robot.commands.drive.DriveTrain;
+import frc.robot.commands.drive.ShiftGear;
 import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.limelight.IntakePosition;
 import frc.robot.commands.limelight.ShootPosition;
@@ -36,6 +38,7 @@ public class RobotContainer {
 	private final JoystickButton elevatorButton = new JoystickButton(xboxController, BUTTON_X);
 	private final JoystickButton shootingButton = new JoystickButton(xboxController, BUTTON_Y);
 	private final JoystickButton trackButton = new JoystickButton(xboxController, BUTTON_LB);
+	private final JoystickButton gearShiftButton = new JoystickButton(xboxController, BUTTON_RB);
 
 	private final DPadButton limelightIntakePositionButton = new DPadButton(xboxController, DPadDirection.RIGHT);
 	private final DPadButton limelightDrivePositionButton = new DPadButton(xboxController, DPadDirection.LEFT);
@@ -51,6 +54,7 @@ public class RobotContainer {
 	
 	// Commands
 	private final DriveTrain driveTrain = new DriveTrain(drive, xboxController);
+	private final ShiftGear shiftGear = new ShiftGear(drive);
 	private final RunIntake runIntake = new RunIntake(intake);
 	private final ClimbingDown climbingDown = new ClimbingDown(climb, xboxController);
 	private final ClimbingUp climbingUp = new ClimbingUp(climb, xboxController);
@@ -67,6 +71,7 @@ public class RobotContainer {
 	}
 
 	private void configureButtonBindings() {
+		gearShiftButton.whenPressed(shiftGear);
 		climbUpButton.whileHeld(climbingUp);
 		climbDownButton.whileHeld(climbingDown);
 		elevatorButton.toggleWhenPressed(runIntake);
