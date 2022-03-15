@@ -37,7 +37,6 @@ public class RobotContainer {
 	private final JoystickButton climbDownButton = new JoystickButton(xboxController, BUTTON_A);
 	private final JoystickButton elevatorButton = new JoystickButton(xboxController, BUTTON_X);
 	private final JoystickButton shootingButton = new JoystickButton(xboxController, BUTTON_Y);
-	private final JoystickButton trackButton = new JoystickButton(xboxController, BUTTON_LB);
 	private final JoystickButton gearShiftButton = new JoystickButton(xboxController, BUTTON_RB);
 
 	private final DPadButton limelightIntakePositionButton = new DPadButton(xboxController, DPadDirection.RIGHT);
@@ -55,12 +54,11 @@ public class RobotContainer {
 	// Commands
 	private final DriveTrain driveTrain = new DriveTrain(drive, xboxController);
 	private final ShiftGear shiftGear = new ShiftGear(drive);
-	private final RunIntake runIntake = new RunIntake(intake);
 	private final ClimbingDown climbingDown = new ClimbingDown(climb, xboxController);
 	private final ClimbingUp climbingUp = new ClimbingUp(climb, xboxController);
 	private final TrackTarget trackTarget = new TrackTarget(lazySusan, limelight);
 	private final RunShooter runShooter = new RunShooter(shooter, intake, limelight);
-	
+
 	private final IntakePosition intakePosition = new IntakePosition(limelight);
 	private final ViewPosition viewPosition = new ViewPosition(limelight);
 	private final ShootPosition shootPosition = new ShootPosition(limelight);
@@ -75,12 +73,11 @@ public class RobotContainer {
 		gearShiftButton.whenPressed(shiftGear);
 		climbUpButton.whileHeld(climbingUp);
 		climbDownButton.whileHeld(climbingDown);
-		elevatorButton.toggleWhenPressed(runIntake);
+		elevatorButton.whileHeld(trackTarget);
 		shootingButton.toggleWhenPressed(runShooter);
-		trackButton.whileHeld(trackTarget);
 
 		limelightIntakePositionButton.whenHeld(intakePosition);
-		limelightDrivePositionButton.whenHeld(viewPosition);
+		limelightDrivePositionButton.whileHeld(viewPosition);
 		limelightShootPositionButton.whenHeld(shootPosition);
 	}
 

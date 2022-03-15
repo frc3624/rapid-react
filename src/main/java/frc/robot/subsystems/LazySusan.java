@@ -15,14 +15,17 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LazySusan extends SubsystemBase {
-	// private final CANSparkMax turnMotor = new CANSparkMax(TURNTABLE_MOTOR, MotorType.kBrushless);
+	private final CANSparkMax turnMotor = new CANSparkMax(TURNTABLE_MOTOR, MotorType.kBrushless);
 
-	private double kP = 0;
+	public double kP = 0.02;
 
 	// On the fly PID Tuning
 	private final ShuffleboardTab tab = Shuffleboard.getTab("Lazy_Susan");
 	private final NetworkTableEntry kPEntry = tab.add("kP", kP).getEntry();
 
+	public LazySusan() {
+		turnMotor.setInverted(true);
+	}
 	private void setConstants() {
 		kP = kPEntry.getDouble(1.0);
 	}
@@ -32,16 +35,8 @@ public class LazySusan extends SubsystemBase {
 	* the shooter and the vision targets on the field
 	* @return Required Percent Output to be in line with the goal
 	*/
-	private double aimToGoal(Limelight limelight) {
-		double error = 0 - (-limelight.getHorizontalOffset());
-		if (Math.abs(error) < .1) error = 0; 
-		double output = kP * error;
-		return output;
-	}
-	public void autoAim(Limelight limelight) {
-		// if(limelight.hasValidTarget())
-			// turnMotor.set(aimToGoal(limelight));
-		// else
-			// turnMotor.set(0);
+	public void turn(double speed) {
+		setConstants();
+		turnMotor.set(speed);
 	}
 }

@@ -21,7 +21,8 @@ public class Limelight extends SubsystemBase {
 	 * @return The horizontal displacement from where the Limelight is aimed to the target
 	 */
 	public double getHorizontalOffset() {
-		return table.getEntry("tx").getDouble(0);
+		System.out.println(table.getEntry("tx").getDouble(1.0));
+		return table.getEntry("tx").getDouble(1.0);
 	}
 
 	/**
@@ -55,8 +56,6 @@ public class Limelight extends SubsystemBase {
 		return table.getEntry("ta").getDouble(0);
 	}
 
-
-	// This enum's job is to store values for the states of the green leds on the limelight
 	public enum LedMode{
 		CURRENT(0),OFF(1),BLINK(2),ON(3);
 
@@ -74,9 +73,8 @@ public class Limelight extends SubsystemBase {
 		table.getEntry("ledMode").setNumber(ledMode.getValue());
 	}
 
-	// This enum's job is to store presets for the servo angle configuration
 	public enum LimelightAngle {
-		INTAKE_ANGLE(1, 25), VIEWING_ANGLE(1, 50), SHOOTING_ANGLE(0, 75);
+		INTAKE_ANGLE(1, 25), VIEWING_ANGLE(1, 0), SHOOTING_ANGLE(0, 75);
 
 		private final int angle;
 		private final int pipelineNum;

@@ -11,7 +11,6 @@ import static frc.robot.Constants.LEFT_SLAVE;
 import static frc.robot.Constants.PCM;
 import static frc.robot.Constants.RIGHT_MASTER;
 import static frc.robot.Constants.RIGHT_SLAVE;
-import frc.robot.subsystems.NavX;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
