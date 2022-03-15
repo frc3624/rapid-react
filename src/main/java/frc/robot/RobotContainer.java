@@ -48,7 +48,7 @@ public class RobotContainer {
 	private final Climb climb = new Climb();
 	private final Intake intake = new Intake();
 	private final Shooter shooter = new Shooter();
-	private static final Limelight limelight = new Limelight();
+	private final Limelight limelight = new Limelight();
 	private final LazySusan lazySusan = new LazySusan();
 	
 	// Commands
@@ -58,6 +58,7 @@ public class RobotContainer {
 	private final ClimbingUp climbingUp = new ClimbingUp(climb, xboxController);
 	private final TrackTarget trackTarget = new TrackTarget(lazySusan, limelight);
 	private final RunShooter runShooter = new RunShooter(shooter, intake, limelight);
+	private final RunIntake runIntake = new RunIntake(intake);
 
 	private final IntakePosition intakePosition = new IntakePosition(limelight);
 	private final ViewPosition viewPosition = new ViewPosition(limelight);
@@ -66,14 +67,14 @@ public class RobotContainer {
 	public RobotContainer() {
 		configureButtonBindings();
 		drive.setDefaultCommand(driveTrain);
-		//lazySusan.setDefaultCommand(trackTarget);
+		lazySusan.setDefaultCommand(trackTarget);
 	}
 
 	private void configureButtonBindings() {
 		gearShiftButton.whenPressed(shiftGear);
 		climbUpButton.whileHeld(climbingUp);
 		climbDownButton.whileHeld(climbingDown);
-		elevatorButton.whileHeld(trackTarget);
+		elevatorButton.toggleWhenPressed(runIntake);
 		shootingButton.toggleWhenPressed(runShooter);
 
 		limelightIntakePositionButton.whenHeld(intakePosition);

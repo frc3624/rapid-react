@@ -10,12 +10,17 @@ import static frc.robot.Constants.SHOOTER_2;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
+	NetworkTableInstance instance = NetworkTableInstance.getDefault();
+	NetworkTable table = instance.getTable("limelight");
+
 	private final WPI_TalonFX primaryShooter = new WPI_TalonFX(SHOOTER_1);
 	private final WPI_TalonFX followShooter = new WPI_TalonFX(SHOOTER_2);
 	private final double WHEEL_RADIUS = 0.0508;
@@ -78,5 +83,22 @@ public class Shooter extends SubsystemBase {
 	public void setFixedLinearSpeed() {
 		setConstants();
 		primaryShooter.set(ControlMode.Velocity, linearSpeed);
+	}
+
+	/**
+	* TODO Remember to factor in Limelight angle into calculation
+	* Returns the Horizontal Distance to the target
+	* @param vertOffset degree measure from limelight
+	* @return Distance in Meters
+	 */
+	// public double getHorizontalDistance() {
+	// 	double goalHeightMeters = 1.524 ;
+	// 	double limelightHeightMeters = 0.8128;
+	// 	double angleToGoalRadians = tx * (Math.PI / 180.0);
+	// 	return (goalHeightMeters - limelightHeightMeters)/Math.tan(angleToGoalRadians);
+	// }
+	@Override
+	public void periodic() {
+
 	}
 }

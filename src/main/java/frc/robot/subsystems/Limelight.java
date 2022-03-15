@@ -8,20 +8,18 @@ import static frc.robot.Constants.SERVO;
 
 public class Limelight extends SubsystemBase {
 	private final NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-
 	private final Servo servo = new Servo(SERVO);
 
 	/**
 	 * @return Whether or not the Limelight has any valid targets
 	 */
 	public boolean hasValidTarget() {
-		return table.getEntry("tv").getDouble(0) == 0 ? true : false;
+		return table.getEntry("tv").getDouble(0) == 0 ? false : true;
 	}
 	/**
 	 * @return The horizontal displacement from where the Limelight is aimed to the target
 	 */
 	public double getHorizontalOffset() {
-		System.out.println(table.getEntry("tx").getDouble(1.0));
 		return table.getEntry("tx").getDouble(1.0);
 	}
 
@@ -29,8 +27,9 @@ public class Limelight extends SubsystemBase {
 	 * @return The vertical displacement from where the Limelight is aimed to the target
 	 */
 	public double getVerticalOffset() {
-		return table.getEntry("ty").getDouble(0);
+		return table.getEntry("ty").getDouble(1.0);
 	}
+
 	/**
 	* TODO Remember to factor in Limelight angle into calculation
 	* Returns the Horizontal Distance to the target
@@ -101,4 +100,15 @@ public class Limelight extends SubsystemBase {
 		setPipeline(limelightAngle.getPipeline());
 		servo.setAngle(limelightAngle.getAngle());
 	}	
+
+	// Put all the methods in periodic so the limelight actually works
+	@Override
+	public void periodic() {
+		hasValidTarget();
+		getHorizontalOffset();
+		getHorizontalDistance();
+		getVerticalOffset();
+		getTargetAngle();
+		getTargetArea();
+	}
 }

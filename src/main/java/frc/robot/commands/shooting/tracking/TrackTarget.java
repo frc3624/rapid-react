@@ -25,29 +25,9 @@ public class TrackTarget extends CommandBase {
 
 	@Override
 	public void execute() {
-		if(limelight.hasValidTarget()) {
-			// double speed = aimToGoal();
-			if(limelight.getHorizontalOffset() > 0) {
-				lazySusan.turn(.1);
-			} else if(limelight.getHorizontalOffset() < 0) {
-				lazySusan.turn(-.1);
-			} else {
-				lazySusan.turn(0);
-			}
-		}
-		else {
-			lazySusan.turn(0);
-		}
+		lazySusan.autoAim(limelight.hasValidTarget(), limelight.getHorizontalOffset());
 	}
 
-	private double aimToGoal() {
-		System.out.println("In Method");
-		double error = 0 - (-limelight.getHorizontalOffset());
-		if (Math.abs(error) < .01) error = 0; 
-		double output = lazySusan.kP * error;
-		return output;
-	}
-	
 	@Override
 	public void end(boolean interrupted) {
 		limelight.setLedMode(LedMode.CURRENT);

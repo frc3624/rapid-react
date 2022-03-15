@@ -7,19 +7,19 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
 public class RunIntake extends CommandBase {
-  private final Intake elevator;
-  public RunIntake(Intake elevator) {
-    this.elevator = elevator;
-    addRequirements(elevator);
+  private final Intake intake;
+  public RunIntake(Intake intake) {
+    this.intake = intake;
+    addRequirements(intake);
   }
 
   @Override
   public void execute() {
-    elevator.runLower();
+    intake.runLower();
   }
 
   @Override
   public void end(boolean interrupted) {
-		elevator.runLower(0);
+		intake.runLower(0);
   }
 }
