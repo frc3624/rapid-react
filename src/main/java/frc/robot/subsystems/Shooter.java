@@ -59,7 +59,7 @@ public class Shooter extends SubsystemBase {
 		primaryShooter.config_kI(0, kI);
 		primaryShooter.config_kD(0, kD);
 		primaryShooter.config_kF(0, kF);
-		linearSpeed = setVelocityEntry.getDouble(1.0);
+		// linearSpeed = setVelocityEntry.getDouble(1.0);
 	}
 
 	/**
@@ -69,8 +69,10 @@ public class Shooter extends SubsystemBase {
 	 */
 	public void setLinearSpeed(double distance) {
 		// Polynomial Regression to convert linear distance to linear speed
-		linearSpeed = 1.12 + 3.34*distance + 0.417*Math.pow(distance, 5) - 0.0639*Math.pow(distance, 5) + 1.93E-03*Math.pow(distance, 5) + 2.62E-04*Math.pow(distance, 5);
-		primaryShooter.set(ControlMode.Velocity, linearSpeed/WHEEL_RADIUS);
+		//linearSpeed = 1.12 + 3.34*distance + 0.417*Math.pow(distance, 5) - 0.0639*Math.pow(distance, 5) + 1.93E-03*Math.pow(distance, 5) + 2.62E-04*Math.pow(distance, 5);
+		linearSpeed = 3526*distance + 4226;
+		System.out.println(linearSpeed);
+		primaryShooter.set(ControlMode.Velocity, linearSpeed);
 	}
 
 	/**
@@ -91,14 +93,10 @@ public class Shooter extends SubsystemBase {
 	* @param vertOffset degree measure from limelight
 	* @return Distance in Meters
 	 */
-	// public double getHorizontalDistance() {
-	// 	double goalHeightMeters = 1.524 ;
-	// 	double limelightHeightMeters = 0.8128;
-	// 	double angleToGoalRadians = tx * (Math.PI / 180.0);
-	// 	return (goalHeightMeters - limelightHeightMeters)/Math.tan(angleToGoalRadians);
-	// }
-	@Override
-	public void periodic() {
-
+	public double getHorizontalDistance(double tx) {
+		double goalHeightMeters = 1.778;
+		double limelightHeightMeters = 0.8128;
+		double angleToGoalRadians = tx * (Math.PI / 180.0);
+		return (goalHeightMeters - limelightHeightMeters)/Math.tan(angleToGoalRadians);
 	}
 }

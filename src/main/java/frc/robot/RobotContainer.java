@@ -22,6 +22,8 @@ import frc.robot.commands.limelight.IntakePosition;
 import frc.robot.commands.limelight.ShootPosition;
 import frc.robot.commands.limelight.ViewPosition;
 import frc.robot.commands.shooting.RunShooter;
+import frc.robot.commands.shooting.tracking.LazySusanLeft;
+import frc.robot.commands.shooting.tracking.LazySusanRight;
 import frc.robot.commands.shooting.tracking.TrackTarget;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drive;
@@ -37,7 +39,9 @@ public class RobotContainer {
 	private final JoystickButton climbDownButton = new JoystickButton(xboxController, BUTTON_A);
 	private final JoystickButton elevatorButton = new JoystickButton(xboxController, BUTTON_X);
 	private final JoystickButton shootingButton = new JoystickButton(xboxController, BUTTON_Y);
-	private final JoystickButton gearShiftButton = new JoystickButton(xboxController, BUTTON_RB);
+	// private final JoystickButton gearShiftButton = new JoystickButton(xboxController, BUTTON_RB);
+	private final JoystickButton lazy1Button = new JoystickButton(xboxController, BUTTON_RB);
+	private final JoystickButton lazy2Button = new JoystickButton(xboxController, BUTTON_LB);
 
 	private final DPadButton limelightIntakePositionButton = new DPadButton(xboxController, DPadDirection.RIGHT);
 	private final DPadButton limelightDrivePositionButton = new DPadButton(xboxController, DPadDirection.LEFT);
@@ -60,6 +64,10 @@ public class RobotContainer {
 	private final RunShooter runShooter = new RunShooter(shooter, intake, limelight);
 	private final RunIntake runIntake = new RunIntake(intake);
 
+	private final LazySusanLeft aim1 = new LazySusanLeft(lazySusan);
+	private final LazySusanRight aim2 = new LazySusanRight(lazySusan);
+	
+
 	private final IntakePosition intakePosition = new IntakePosition(limelight);
 	private final ViewPosition viewPosition = new ViewPosition(limelight);
 	private final ShootPosition shootPosition = new ShootPosition(limelight);
@@ -67,15 +75,18 @@ public class RobotContainer {
 	public RobotContainer() {
 		configureButtonBindings();
 		drive.setDefaultCommand(driveTrain);
-		lazySusan.setDefaultCommand(trackTarget);
+		// lazySusan.setDefaultCommand(trackTarget);
 	}
 
 	private void configureButtonBindings() {
-		gearShiftButton.whenPressed(shiftGear);
+		// gearShiftButton.whenPressed(shiftGear);
 		climbUpButton.whileHeld(climbingUp);
 		climbDownButton.whileHeld(climbingDown);
 		elevatorButton.toggleWhenPressed(runIntake);
 		shootingButton.toggleWhenPressed(runShooter);
+
+		lazy1Button.whileHeld(aim1);
+		lazy2Button.whileHeld(aim2);
 
 		limelightIntakePositionButton.whenHeld(intakePosition);
 		limelightDrivePositionButton.whileHeld(viewPosition);

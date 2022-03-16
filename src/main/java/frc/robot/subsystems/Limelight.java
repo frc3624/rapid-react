@@ -37,10 +37,15 @@ public class Limelight extends SubsystemBase {
 	* @return Distance in Meters
 	 */
 	public double getHorizontalDistance() {
-		double goalHeightMeters = 1.524 ;
-		double limelightHeightMeters = 0.8128;
-		double angleToGoalRadians = getHorizontalOffset() * (Math.PI / 180.0);
-		return (goalHeightMeters - limelightHeightMeters)/Math.tan(angleToGoalRadians);
+		double goalHeightMeters = 2.1336;
+		double limelightHeightMeters = 0.8382;
+		double angleToGoalRadians = (12.5 + getVerticalOffset()) * (Math.PI / 180.0);
+		double distance = (goalHeightMeters - limelightHeightMeters)/Math.tan(angleToGoalRadians);
+		System.out.println(distance);
+		if(distance > 0)
+			return distance;
+		else
+			return 0;
 	}
 	/**
 	 * @return The rotation of the target relative to the face of the Limelight
@@ -73,7 +78,7 @@ public class Limelight extends SubsystemBase {
 	}
 
 	public enum LimelightAngle {
-		INTAKE_ANGLE(1, 25), VIEWING_ANGLE(1, 0), SHOOTING_ANGLE(0, 75);
+		INTAKE_ANGLE(1, 75), VIEWING_ANGLE(1, 25), SHOOTING_ANGLE(0, 0);
 
 		private final int angle;
 		private final int pipelineNum;

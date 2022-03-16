@@ -26,8 +26,9 @@ public class Shoot extends CommandBase {
 
 	@Override
 	public void execute() {
-		shooter.setFixedLinearSpeed();
+		// shooter.setFixedLinearSpeed();
 		// shooter.setShootMotorSpeed(0.5);
+		shooter.setLinearSpeed(limelight.getHorizontalDistance());
 	}
 
 	@Override
