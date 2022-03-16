@@ -15,7 +15,7 @@ public class ShiftGear extends CommandBase {
 	}
 
 	@Override
-	public void initialize() {
+	public void execute() {
 		drive.toggleGear();
 	}
 }

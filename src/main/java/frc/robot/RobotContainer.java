@@ -75,7 +75,7 @@ public class RobotContainer {
 	public RobotContainer() {
 		configureButtonBindings();
 		drive.setDefaultCommand(driveTrain);
-		// lazySusan.setDefaultCommand(trackTarget);
+		 lazySusan.setDefaultCommand(trackTarget);
 	}
 
 	private void configureButtonBindings() {

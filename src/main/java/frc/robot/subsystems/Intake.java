@@ -86,9 +86,9 @@ public class Intake extends SubsystemBase {
 	* Runs the Lower Conveyor with set speed of 35%
 	*/
 	public void runLower() {
-		// if(isOppositeAlliance())
-		// 	lowerElevator.set(ControlMode.PercentOutput, -.6);
-		// else
+		if(isOppositeAlliance())
+			lowerElevator.set(ControlMode.PercentOutput, -.6);
+		else
 			lowerElevator.set(ControlMode.PercentOutput, .6);
 	}
 }

@@ -54,14 +54,19 @@ public class Drive extends SubsystemBase  {
 	}
 
 	public void toggleGear() {
-		gearPiston.toggle();
+		if(gearPiston.get() == Value.kForward)
+			highGear();
+		else if(gearPiston.get() == Value.kReverse)
+			lowGear();
+		else
+			lowGear();
 	}
 
-	private final NavX navx = new NavX();
+	private final NavX navX = new NavX();
 
 	public void periodic() {
-		SmartDashboard.putNumber("x velocity", navx.getXVelocity());
-		SmartDashboard.putNumber("y velocity", navx.getYVelocity());
-		SmartDashboard.putNumber("z velocity", navx.getZVelocity());
+		SmartDashboard.putNumber("x velocity", navX.getXVelocity());
+		SmartDashboard.putNumber("y velocity", navX.getYVelocity());
+		SmartDashboard.putNumber("z velocity", navX.getZVelocity());
 	}
 }

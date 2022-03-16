@@ -25,7 +25,7 @@ public class Climb extends SubsystemBase {
 	private final DigitalInput rollerBotSwitch = new DigitalInput(ROLLER_BOT);
 	public Climb() {
 		climbMotor.setInverted(true);
-		// Setting, just in case it isn't set already
+		// Setting just in case it isn't set already
 		climbMotor.setIdleMode(IdleMode.kBrake);
 	}
 	public void run(double speed) {

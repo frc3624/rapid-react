@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Limelight.LedMode;
+import frc.robot.subsystems.Limelight.LimelightAngle;
 
 public class Shoot extends CommandBase {
 	private final Limelight limelight;
@@ -26,15 +27,14 @@ public class Shoot extends CommandBase {
 
 	@Override
 	public void execute() {
-		// shooter.setFixedLinearSpeed();
-		// shooter.setShootMotorSpeed(0.5);
-		shooter.setLinearSpeed(limelight.getHorizontalDistance());
+		limelight.setIntakePosition(LimelightAngle.SHOOTING_ANGLE);
+		shooter.setAutoSpeed(limelight.getHorizontalDistance());
 	}
 
 	@Override
 	public void end(boolean interrupted) {
 		limelight.setLedMode(LedMode.CURRENT);
-		shooter.setShootMotorSpeed(0);
+		shooter.setSpeedOutput(0);
 	}
 
 	@Override
