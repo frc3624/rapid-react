@@ -87,6 +87,7 @@ public class Shooter extends SubsystemBase {
 	}
 	public void setManualSpeed() {
 		setConstants();
-		primaryShooter.set(ControlMode.Velocity, rotationalSpeed);
+		//primaryShooter.set(ControlMode.Velocity, rotationalSpeed);
+		primaryShooter.set(ControlMode.PercentOutput, .5);
 	}
 }

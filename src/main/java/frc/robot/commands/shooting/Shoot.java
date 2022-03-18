@@ -28,7 +28,8 @@ public class Shoot extends CommandBase {
 	@Override
 	public void execute() {
 		limelight.setIntakePosition(LimelightAngle.SHOOTING_ANGLE);
-		shooter.setAutoSpeed(limelight.getHorizontalDistance());
+		//shooter.setAutoSpeed(limelight.getHorizontalDistance());
+		shooter.setManualSpeed();
 	}
 
 	@Override

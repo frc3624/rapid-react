@@ -28,7 +28,7 @@ public class Intake extends SubsystemBase {
 	private final Color red = new Color(.45068359375 , .3837890625, .165771484375); 
 	private final Color airColor = new Color(.339111328125 , .47119140625, .18994140625); 
 	private final Color blue = new Color(.2, .4, .37);
-	private final Color allianceColor = red; // Make it red or blue
+	private final Color allianceColor = blue; // Make it red or blue
 
 	public Intake() {
 		upperElevator.setInverted(true);
