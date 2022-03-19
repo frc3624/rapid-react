@@ -32,16 +32,16 @@ public class LazySusan extends SubsystemBase {
 		// setConstants();
 		// boolean validTarget = table.getEntry("tv").getDouble(0) == 0 ? false : true;
 		if(validTarget) {
-			if(tx > 1.5) {
+			if(tx > 2.5) {
 				if(leftLim.get() || rightLim.get())
-					turnMotor.set(-.1);
+					turnMotor.set(-.4);
 				else
-					turnMotor.set(.1);
-			} else if(tx < -1.5) {
+					turnMotor.set(.15);
+			} else if(tx < -2.5) {
 				if(leftLim.get() || rightLim.get())
-					turnMotor.set(.1);
+					turnMotor.set(.4);
 				else
-					turnMotor.set(-.1);
+					turnMotor.set(-.15);
 			} else {
 				turnMotor.set(0);
 			}

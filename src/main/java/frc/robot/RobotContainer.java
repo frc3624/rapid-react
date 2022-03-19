@@ -21,6 +21,7 @@ import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.limelight.IntakePosition;
 import frc.robot.commands.limelight.ShootPosition;
 import frc.robot.commands.limelight.ViewPosition;
+import frc.robot.commands.shooting.DumpIntake;
 import frc.robot.commands.shooting.RunShooter;
 import frc.robot.commands.shooting.tracking.LazySusanLeft;
 import frc.robot.commands.shooting.tracking.LazySusanRight;
@@ -39,7 +40,7 @@ public class RobotContainer {
 	private final JoystickButton climbDownButton = new JoystickButton(xboxController, BUTTON_A);
 	private final JoystickButton elevatorButton = new JoystickButton(xboxController, BUTTON_X);
 	private final JoystickButton shootingButton = new JoystickButton(xboxController, BUTTON_Y);
-	// private final JoystickButton gearShiftButton = new JoystickButton(xboxController, BUTTON_RB);
+	private final JoystickButton gearShiftButton = new JoystickButton(xboxController, BUTTON_RB);
 	private final JoystickButton lazy1Button = new JoystickButton(xboxController, BUTTON_RB);
 	private final JoystickButton lazy2Button = new JoystickButton(xboxController, BUTTON_LB);
 
@@ -62,6 +63,7 @@ public class RobotContainer {
 	private final ClimbingUp climbingUp = new ClimbingUp(climb, xboxController);
 	private final TrackTarget trackTarget = new TrackTarget(lazySusan, limelight);
 	private final RunShooter runShooter = new RunShooter(shooter, intake, limelight);
+	//private final DumpIntake runShooter = new DumpIntake(intake);
 	private final RunIntake runIntake = new RunIntake(intake);
 
 	private final LazySusanLeft aim1 = new LazySusanLeft(lazySusan);
@@ -75,7 +77,7 @@ public class RobotContainer {
 	public RobotContainer() {
 		configureButtonBindings();
 		drive.setDefaultCommand(driveTrain);
-		 lazySusan.setDefaultCommand(trackTarget);
+		// lazySusan.setDefaultCommand(trackTarget);
 	}
 
 	private void configureButtonBindings() {

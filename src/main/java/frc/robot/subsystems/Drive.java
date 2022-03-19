@@ -13,6 +13,7 @@ import static frc.robot.Constants.RIGHT_MASTER;
 import static frc.robot.Constants.RIGHT_SLAVE;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -36,30 +37,27 @@ public class Drive extends SubsystemBase  {
 		rightSlave.follow(rightMaster);
 		leftSlave.follow(leftMaster);
 		gearPiston.set(Value.kForward);
+
+		leftMaster.setIdleMode(IdleMode.kBrake);
+		rightMaster.setIdleMode(IdleMode.kBrake);
+		leftSlave.setIdleMode(IdleMode.kBrake);
+		rightSlave.setIdleMode(IdleMode.kBrake);
 	}
 
 	public void arcadeDrive(double zRotation, double xSpeed) {
 		if(gearPiston.get() == Value.kReverse)
-			diffDrive.arcadeDrive(zRotation, .75 * xSpeed);
+			diffDrive.arcadeDrive(.5 * zRotation, .5 * xSpeed);
 		else
 			diffDrive.arcadeDrive(zRotation, xSpeed);
 	}
 
-	public void highGear() {
-		gearPiston.set(Value.kReverse);
-	}
-	
-	public void lowGear() {
-		gearPiston.set(Value.kForward);
-	}
-
 	public void toggleGear() {
 		if(gearPiston.get() == Value.kForward)
-			highGear();
+			gearPiston.set(Value.kReverse);
 		else if(gearPiston.get() == Value.kReverse)
-			lowGear();
+			gearPiston.set(Value.kForward);
 		else
-			lowGear();
+			gearPiston.set(Value.kForward);
 	}
 
 	private final NavX navX = new NavX();
