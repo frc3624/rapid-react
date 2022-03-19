@@ -5,20 +5,25 @@
 package frc.robot.subsystems;
 
 import static frc.robot.Constants.LOWER_INTAKE;
+import static frc.robot.Constants.LOWER_INTAKE_NEO;
 import static frc.robot.Constants.UPPER_INTAKE;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
 	private final WPI_TalonSRX upperElevator = new WPI_TalonSRX(UPPER_INTAKE);
+	private final CANSparkMax lowerElevatorSupport = new CANSparkMax(LOWER_INTAKE_NEO, MotorType.kBrushless);
 	private final WPI_TalonSRX lowerElevator = new WPI_TalonSRX(LOWER_INTAKE);
 	private final double ELEVATOR_SPEED = 0.5;
 
@@ -29,6 +34,8 @@ public class Intake extends SubsystemBase {
 	private final Color airColor = new Color(.339111328125 , .47119140625, .18994140625); 
 	private final Color blue = new Color(.2, .4, .37);
 	private final Color allianceColor = red; // Make it red or blue
+
+	private final MotorControllerGroup lowerIntake = new MotorControllerGroup(lowerElevator, lowerElevatorSupport);
 
 	public Intake() {
 		upperElevator.setInverted(true);
@@ -80,7 +87,8 @@ public class Intake extends SubsystemBase {
 	* @param speed Value [0,1]
 	*/
 	public void runLower(double speed) {
-		lowerElevator.set(ControlMode.PercentOutput, speed);
+		//lowerElevator.set(ControlMode.PercentOutput, speed);
+		lowerIntake.set(speed);
 	}
 	/**
 	* Runs the Lower Conveyor with set speed of 35%

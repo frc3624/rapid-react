@@ -18,7 +18,7 @@ public final class Constants {
 	public static final int GEAR_SHIFT_IN = 0, GEAR_SHIFT_OUT = 1;		
 
 	// Intake IDs
-	public static final int LOWER_INTAKE = 5, UPPER_INTAKE = 6;
+	public static final int LOWER_INTAKE = 5, UPPER_INTAKE = 6, LOWER_INTAKE_NEO = 14;
 
 	// Climb IDs
 	public static final int CLIMB_MOTOR = 7;
