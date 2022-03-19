@@ -95,8 +95,9 @@ public class Intake extends SubsystemBase {
 	*/
 	public void runLower() {
 		// if(isOppositeAlliance())
-			// lowerElevator.set(ControlMode.PercentOutput, -.6);
+			// lowerIntake.set(-.6);
 		// else
-			lowerElevator.set(ControlMode.PercentOutput, .6);
+			lowerIntake.set(.6);
+
 	}
 }
