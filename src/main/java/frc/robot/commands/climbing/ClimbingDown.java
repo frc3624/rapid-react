@@ -22,7 +22,7 @@ public class ClimbingDown extends CommandBase {
 
 	@Override
 	public void execute() {
-		climb.run(-0.7);
+		climb.run(-0.85);
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class ClimbingDown extends CommandBase {
 
 	@Override
 	public boolean isFinished() {
-		return  climb.isEmergencyBot();
+		return climb.isEmergencyBot();
 	}
 }
 

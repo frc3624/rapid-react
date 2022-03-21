@@ -22,7 +22,7 @@ public class ClimbingUp extends CommandBase {
 
 	@Override
 	public void execute() {
-		climb.run(0.7);
+		climb.run(0.85);
 	}
 
 	@Override

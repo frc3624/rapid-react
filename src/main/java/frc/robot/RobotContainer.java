@@ -44,8 +44,8 @@ public class RobotContainer {
 	private final JoystickButton lazy1Button = new JoystickButton(xboxController, BUTTON_RB);
 	private final JoystickButton lazy2Button = new JoystickButton(xboxController, BUTTON_LB);
 
-	private final DPadButton limelightIntakePositionButton = new DPadButton(xboxController, DPadDirection.RIGHT);
-	private final DPadButton limelightDrivePositionButton = new DPadButton(xboxController, DPadDirection.LEFT);
+	private final DPadButton limelightIntakePositionButton = new DPadButton(xboxController, DPadDirection.DOWN);
+	private final DPadButton limelightDrivePositionButton = new DPadButton(xboxController, DPadDirection.RIGHT);
 	private final DPadButton limelightShootPositionButton = new DPadButton(xboxController, DPadDirection.UP);
 	
 	// Subsystems
