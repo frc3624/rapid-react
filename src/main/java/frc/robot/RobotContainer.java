@@ -70,6 +70,7 @@ public class RobotContainer {
 	private final LazySusanRight aim2 = new LazySusanRight(lazySusan);
 	
 
+	// Auto thingy
 	private final IntakePosition intakePosition = new IntakePosition(limelight);
 	private final ViewPosition viewPosition = new ViewPosition(limelight);
 	private final ShootPosition shootPosition = new ShootPosition(limelight);
@@ -93,9 +94,5 @@ public class RobotContainer {
 		limelightIntakePositionButton.whenHeld(intakePosition);
 		limelightDrivePositionButton.whileHeld(viewPosition);
 		limelightShootPositionButton.whenHeld(shootPosition);
-	}
-
-	public Command getAutonomousCommand() {
-		return null;
 	}
 }

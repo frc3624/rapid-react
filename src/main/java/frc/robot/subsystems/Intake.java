@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
 	private final WPI_TalonSRX upperElevator = new WPI_TalonSRX(UPPER_INTAKE);
-	private final CANSparkMax lowerElevatorSupport = new CANSparkMax(LOWER_INTAKE_NEO, MotorType.kBrushless);
+	private final CANSparkMax upperElevatorSupport = new CANSparkMax(LOWER_INTAKE_NEO, MotorType.kBrushless);
 	private final WPI_TalonSRX lowerElevator = new WPI_TalonSRX(LOWER_INTAKE);
 	private final double ELEVATOR_SPEED = 0.5;
 
@@ -34,8 +34,6 @@ public class Intake extends SubsystemBase {
 	private final Color airColor = new Color(.339111328125 , .47119140625, .18994140625); 
 	private final Color blue = new Color(.2, .4, .37);
 	private final Color allianceColor = red; // Make it red or blue
-
-	private final MotorControllerGroup lowerIntake = new MotorControllerGroup(lowerElevator, lowerElevatorSupport);
 
 	public Intake() {
 		upperElevator.setInverted(true);
@@ -80,6 +78,7 @@ public class Intake extends SubsystemBase {
 	*/
 	public void runUpper() {
 		upperElevator.set(ControlMode.PercentOutput, ELEVATOR_SPEED);
+		upperElevatorSupport.set(ELEVATOR_SPEED - .053);
 	}
 
 	/**
@@ -87,17 +86,16 @@ public class Intake extends SubsystemBase {
 	* @param speed Value [0,1]
 	*/
 	public void runLower(double speed) {
-		//lowerElevator.set(ControlMode.PercentOutput, speed);
-		lowerIntake.set(speed);
+		lowerElevator.set(ControlMode.PercentOutput, speed);
 	}
 	/**
 	* Runs the Lower Conveyor with set speed of 35%
 	*/
 	public void runLower() {
-		// if(isOppositeAlliance())
-			// lowerIntake.set(-.6);
-		// else
-			lowerIntake.set(.6);
+		if(isOppositeAlliance())
+			lowerElevator.set(-.6);
+		else
+			lowerElevator.set(.6);
 
 	}
 }
